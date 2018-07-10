@@ -1,40 +1,38 @@
 #include "x.h"
 
 
-#include <windows.h> 
-#include <tchar.h>  
 
-//ÉêÃ÷´°¿Ú¹ı³ÌÔ­ĞÍ
+//ç”³æ˜çª—å£è¿‡ç¨‹åŸå‹
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 
 
 
-//WINAPIºê µ÷ÓÃÔ¼¶¨ÒâÎ¶×ÅÕ»µÄÇåÀí¹¤×÷ÓÉ±»µ÷ÓÃº¯ÊıÍê³É ³ÌĞòµ±Ç°ÊµÀıµÄ¾ä±ú 
-//Ó¦ÓÃ³ÌĞòÉÏµÄÒ»¸öÊµÀı¾ä±ú Ó¦ÓÃ³ÌĞòÃüÁîĞĞ ÈçºÎÏÔÊ¾´°¿Ú
+//WINAPIå® è°ƒç”¨çº¦å®šæ„å‘³ç€æ ˆçš„æ¸…ç†å·¥ä½œç”±è¢«è°ƒç”¨å‡½æ•°å®Œæˆ ç¨‹åºå½“å‰å®ä¾‹çš„å¥æŸ„ 
+//åº”ç”¨ç¨‹åºä¸Šçš„ä¸€ä¸ªå®ä¾‹å¥æŸ„ åº”ç”¨ç¨‹åºå‘½ä»¤è¡Œ å¦‚ä½•æ˜¾ç¤ºçª—å£
 int WINAPI WinMain(HINSTANCE hThis, HINSTANCE hPrev, LPSTR szCmdLine, int iCmdShow)
 {
-	//²»ÊµÓÃÄ³Ğ©²ÎÊı UNREFERENCED_PARAMETERºê
+	//ä¸å®ç”¨æŸäº›å‚æ•° UNREFERENCED_PARAMETERå®
 	UNREFERENCED_PARAMETER(hPrev);
-	//ÊµÀı»¯ WNDCLASSEX ´°¿Ú½á¹¹
+	//å®ä¾‹åŒ– WNDCLASSEX çª—å£ç»“æ„
 	WNDCLASSEX wcx = { 0 };
-	wcx.cbSize = sizeof(wcx);                           //´°¿Ú½á¹¹´óĞ¡
-	wcx.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);     //±³¾°»­Ë¢¾ä±ú
-	wcx.style = CS_HREDRAW | CS_VREDRAW;                //³¤¿í·¢Éú±ä»¯ÖØ»æ
-	wcx.lpfnWndProc = WndProc;                          //Ö¸Ïò´°¿Ú¹ı³ÌÖ¸Õë
-	wcx.cbClsExtra = 0;                                 //ÊµÀı»¯´°¿Ú Àà   ºó·ÖÅä¶îÍâ×Ö½Ú
-	wcx.cbWndExtra = 0;                                 //ÊµÀı»¯´°¿Ú ÊµÀı ºó·ÖÅä¶îÍâ×Ö½Ú
-	wcx.hInstance = hThis;                              //°üº¬´°¿Ú¹ı³ÌµÄÊµÀı¾ä±ú
-	wcx.hIcon = LoadIcon(NULL, IDI_APPLICATION);        //Í¼±ê¾ä±ú
+	wcx.cbSize = sizeof(wcx);                           //çª—å£ç»“æ„å¤§å°
+	wcx.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);     //èƒŒæ™¯ç”»åˆ·å¥æŸ„
+	wcx.style = CS_HREDRAW | CS_VREDRAW;                //é•¿å®½å‘ç”Ÿå˜åŒ–é‡ç»˜
+	wcx.lpfnWndProc = WndProc;                          //æŒ‡å‘çª—å£è¿‡ç¨‹æŒ‡é’ˆ
+	wcx.cbClsExtra = 0;                                 //å®ä¾‹åŒ–çª—å£ ç±»   ååˆ†é…é¢å¤–å­—èŠ‚
+	wcx.cbWndExtra = 0;                                 //å®ä¾‹åŒ–çª—å£ å®ä¾‹ ååˆ†é…é¢å¤–å­—èŠ‚
+	wcx.hInstance = hThis;                              //åŒ…å«çª—å£è¿‡ç¨‹çš„å®ä¾‹å¥æŸ„
+	wcx.hIcon = LoadIcon(NULL, IDI_APPLICATION);        //å›¾æ ‡å¥æŸ„
 	wcx.hIconSm = (HICON)LoadImage(hThis, MAKEINTRESOURCE(5), IMAGE_ICON, GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CXSMICON), LR_DEFAULTCOLOR);
-	wcx.hCursor = LoadCursor(NULL, IDC_ARROW);          //¹â±ê¾ä±ú
+	wcx.hCursor = LoadCursor(NULL, IDC_ARROW);          //å…‰æ ‡å¥æŸ„
 	wcx.lpszMenuName = NULL;
 	wcx.lpszClassName = TEXT("MainWclass");
 	if (!RegisterClassEx(&wcx))
 	{
 		return -1;
 	}
-	HWND hwnd = CreateWindow(wcx.lpszClassName, TEXT("hello"), WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, (HWND)NULL, (HMENU)NULL, hThis, (LPVOID)NULL);
+	HWND hwnd = CreateWindow(wcx.lpszClassName, TEXT("hello"), WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 400, 600, (HWND)NULL, (HMENU)NULL, hThis, (LPVOID)NULL);
 	if (!hwnd)
 	{
 		return 111;
@@ -59,33 +57,82 @@ int WINAPI WinMain(HINSTANCE hThis, HINSTANCE hPrev, LPSTR szCmdLine, int iCmdSh
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-
-	PAINTSTRUCT ps;//¸Ã½á¹¹Ìå°üº¬ÁËÄ³Ó¦ÓÃ³ÌĞòÓÃÀ´»æÖÆËüËùÓµÓĞµÄ´°¿Ú¿Í»§ÇøËùĞèÒªµÄĞÅÏ¢
+	HDC hdc;
+	PAINTSTRUCT ps;
 
 
 	switch (uMsg)
 	{
 	case WM_CREATE:
 	{
+		onTimer(hWnd);
 		break;
 	}
-
+	case WM_TIMER:
+	{
+		//ç”±å®šæ—¶å™¨åˆ›å»ºçš„æ¶ˆæ¯
+		ontime(hWnd);
+		
+		break;
+	}
 	case WM_KEYDOWN:
 	{
 		switch (wParam)
 		{
 		case VK_RETURN:
 		{
+			create_block();
+			break;
+		}
+		case VK_LEFT:
+		{
+			if (impact_l() == false)
+			{
+				block_left();
+			}
+			OnPrint(GetDC(hWnd));
+			break;
+		}
+		case VK_RIGHT:
+		{
+			if (impact_r() == false)
+			{
+				block_right();
+			}
+			OnPrint(GetDC(hWnd));
+			break;
+		}
+		case VK_DOWN:
+		{
+			if (islow() == true || impact() == true)
+			{
+				create_block();
+			}
+			else
+			{
+				block_down();
+			}
+			isfull();
+			OnPrint(GetDC(hWnd));
+			break;
+		}
+		case VK_UP:
+		{
+			if (impact_s() == false)
+			{
+				block_spin();
+				OnPrint(GetDC(hWnd));
+			}
 			break;
 		}
 		case VK_F1:
 		{
-			MessageBox(NULL, "0.0", "F1", MB_OK);
+
 			break;
 		}
 		case VK_F2:
 		{
-			MessageBox(NULL, "0.0", "F2", MB_OK);
+			
 			break;
 		}
 		default:
@@ -100,35 +147,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	}
 	case WM_PAINT:
 	{
-		HDC gdc;
-		gdc = BeginPaint(hWnd, &ps);//´°¿ÚDC
-		HDC ncDC;//Éè±¸»·¾³¾ä±ú  Éè±¸»·¾³£¨Device Context£¬¼ò³Æ DC£©
-		ncDC = CreateCompatibleDC(gdc);//ÄÚ´æDCºÍ´°¿ÚDC¼æÈİ
-		HBITMAP HMenDC = CreateCompatibleBitmap(gdc, 200, 200);//´´½¨Ò»ÕÅÖ½
-		SelectObject(ncDC, HMenDC);//Î»Í¼¸øÄÚ´æDC
-
-		Rectangle(gdc, 300, 300, 400, 400);//·½¿é
-		TextOut(gdc, 200, 200, "hello", strlen("hello"));//×Ö
-
-		Rectangle(ncDC, 0, 0, 200, 200);//·½¿é
-		TextOut(ncDC, 20, 20, "ncdc", strlen("ncdc"));//×ÖncDC
-
-		BitBlt(gdc, 0, 0, 200, 200, ncDC, 0, 0, SRCCOPY);
-		DeleteObject(HMenDC);
-		DeleteDC(ncDC);
-
-
+		hdc = BeginPaint(hWnd, &ps);//çª—å£DC
+		OnPrint(hdc);
 		EndPaint(hWnd, &ps);
 		break;
 	}
 
 	case WM_DESTROY:
-		
+		killTime(hWnd);
 		PostQuitMessage(0);
 
 		return 0;
 	default:
-		return DefWindowProc(hWnd, uMsg, wParam, lParam);//²»ĞèÒªµÄÏûÏ¢×ª¸øwindows
+		return DefWindowProc(hWnd, uMsg, wParam, lParam);//ä¸éœ€è¦çš„æ¶ˆæ¯è½¬ç»™windows
 	}
 	return 0;
 }
