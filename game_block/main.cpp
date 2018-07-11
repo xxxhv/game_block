@@ -104,15 +104,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		}
 		case VK_DOWN:
 		{
-			if (islow() == true || impact() == true)
+
+			if (isfull() == true)
 			{
-				create_block();
+
+				if (islow() == true || impact() == true)
+				{
+					isfull();
+					create_block();
+				}
+				else
+				{
+					block_down();
+				}
 			}
-			else
-			{
-				block_down();
-			}
-			isfull();
+			
 			OnPrint(GetDC(hWnd));
 			break;
 		}
