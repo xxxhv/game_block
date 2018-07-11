@@ -242,6 +242,10 @@ bool s1()
 }
 bool s2()
 {
+	if (bx >= nW - 2)
+	{
+		return true;
+	}
 	
 	if (a[bx + 2][by] == 0 && a[bx + 2][by + 1] == 0)
 	{
@@ -336,6 +340,7 @@ bool isfull()
 	int sum = 0;
 	for (int i = nH - 1; i >= 1; i--)
 	{
+		sum = 0;
 		for (int j = 0; j <= nW; j++)
 		{
 			sum += a[j][i];
@@ -343,6 +348,7 @@ bool isfull()
 		if (sum == nW * 2)
 		{
 			score++;
+			
 			for (int k = i; k >= 1; k--)
 			{
 				for (int l = 0; l <= nW; l++)
@@ -351,8 +357,8 @@ bool isfull()
 				}
 			}
 			isfull();
+			return false;//返回第几排满了
 		}
-		sum = 0;
 	}
 	return true;
 }
@@ -419,16 +425,20 @@ void ontime(HWND h)
 	
 	OnPrint(gdc);
 	//paint(gdc);//染色
-
-	if (islow() == true || impact() == true)
+	if (isfull() == true)
 	{
-		create_block();
+		
+		if (islow() == true || impact() == true)
+		{
+			isfull();
+			create_block();
+		}
+		else
+		{
+			block_down();
+		}
 	}
-	else
-	{
-		block_down();
-	}
-	isfull();
+	
 
 	ReleaseDC(h, gdc);
 }
